@@ -1,0 +1,3 @@
+Webcord --add-css-theme (Theme must be .theme.css)
+About:Support to find file location to create /Chrome/userChrome.css
+~/.config/kitty/kitty.conf

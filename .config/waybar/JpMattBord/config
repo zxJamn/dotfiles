@@ -1,0 +1,228 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin-left": 20,
+  "margin-right": 20,
+  "margin-top": 8,
+  "margin-bottom": 0,
+  "reload_style_on_change": true,
+
+  "modules-left": [
+    "custom/notification",
+    "custom/spacer",
+    "custom/japan_date",
+    "clock",
+    "custom/pacman",
+    "custom-endpoint",
+    "tray",
+    "custom/window_title"
+  ],
+
+  "modules-center": ["hyprland/workspaces"],
+
+  "modules-right": [
+    "custom/playerctl",
+    "custom-uptime",
+    "custom-theme_toggle",
+    "custom-endpoint",
+    "group/expand",
+    "custom/wlsunset",
+    "bluetooth",
+    "pulseaudio",
+    "network",
+    "battery"
+  ],
+
+  "custom/window_title": {
+    "exec": "hyprctl activewindow -j | jq -r '.title'",
+    "interval": 1,
+    "format": "{}  "
+  },
+  "custom/theme_toggle": {
+    "format": "🌓",
+    "tooltip": "Toggle Light/Dark Mode",
+    "on-click": "~/.config/waybar/scripts/toggle-theme.sh"
+  },
+
+  "custom-uptime": {
+    "format": "󰔟 {}",
+    "exec": "uptime -p | sed 's/up //'",
+    "interval": 60,
+    "tooltip": false
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "一",
+      "2": "二",
+      "3": "三",
+      "4": "四",
+      "5": "五",
+      "6": "六",
+      "7": "七",
+      "8": "八",
+      "9": "九",
+      "10": "十"
+    },
+    "persistent-workspaces": {
+      "*": [1, 2, 3, 4, 5]
+    }
+  },
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "interval": 60,
+    "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-start-from": 0,
+      "format": {
+        "months": "<span color='#90caf9'><b>{}</b></span>",
+        "weekdays": "<span color='#90caf9'><b>{}</b></span>",
+        "today": "<span color='#a5d6a7'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-middle": "mode-prev",
+      "on-click": "mode-next"
+    }
+  },
+
+  "custom/japan_date": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/japan_date.py",
+    "interval": 3600,
+    "tooltip": false
+  },
+
+  "custom/pacman": {
+    "format": "󰅢 {}",
+    "interval": 30,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
+    "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+    "signal": 8,
+    "tooltip": false
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": " ",
+    "on-click": "swaync-client -t -sw",
+    "escape": true
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 14
+  },
+
+  "custom/playerctl": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/playerctl_status.py",
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "interval": 1,
+    "tooltip": true
+  },
+
+  "custom/wlsunset": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/wlsunset_status.sh",
+    "interval": 10,
+    "on-click": "~/.config/waybar/scripts/toggle-wlsunset.sh",
+    "tooltip": false
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "default": ["", ""]
+    },
+    "scroll-step": 5,
+    "on-click": "pavucontrol"
+  },
+
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "tooltip-format-disconnected": "No connection",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} 🖧",
+    "on-click": "kitty nmtui"
+  },
+
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "BT-off",
+    "format-disabled": "󰂲",
+    "format-connected-battery": "{device_battery_percentage}% 󰂯",
+    "format-alt": "{device_alias} 󰂯",
+    "tooltip-format": "{controller_alias} ({controller_address})\n{num_connections} connected",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+    "on-click-right": "blueman-manager"
+  },
+
+  "battery": {
+    "interval": 30,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{capacity}% {icon}  ",
+    "format-charging": "{capacity}% 󰂄",
+    "format-plugged": "{capacity}% 󰂄 ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹"]
+  },
+
+  "group/expand": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 600,
+      "transition-to-left": true,
+      "click-to-reveal": true
+    },
+    "modules": ["custom/expand", "custom/colorpicker", "cpu", "memory", "temperature", "custom/endpoint"]
+  },
+
+  "custom/expand": {
+    "format": "",
+    "tooltip": false
+  },
+
+  "custom/colorpicker": {
+    "format": "󰐨",
+    "tooltip": "Open color picker",
+    "on-click": "~/.config/waybar/scripts/colorpicker.sh"
+  },
+
+  "cpu": {
+    "format": "CPU: {}%",
+    "interval": 5
+  },
+
+  "memory": {
+    "format": "RAM: {}%",
+    "interval": 5
+  },
+
+  "temperature": {
+    "format": "Temp {}°C",
+    "interval": 10
+  },
+
+  "custom/spacer": {
+    "format": "",
+    "tooltip": false
+  }
+}

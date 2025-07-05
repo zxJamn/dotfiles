@@ -1,0 +1,182 @@
+{
+    "layer": "top",
+    "position": "top",
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-top": 7,
+    "margin-bottom": 0,
+    "reload_style_on_change": true,
+    "modules-left": ["custom/notification", "custom/roman_date", "clock", "custom/pacman", "tray"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["custom/playerctl", "group/expand", "custom/wlsunset", "bluetooth", "pulseaudio", "network", "battery"],
+
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "I",
+            "2": "II",
+            "3": "III",
+            "4": "IV",
+            "5": "V",
+            "6": "VI",
+            "7": "VII",
+            "8": "VIII",
+            "9": "IX",
+            "10": "X"
+        },
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5]
+        }
+    },
+    "custom/wlsunset": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/wlsunset_status.sh",
+        "interval": 10,
+        "on-click": "~/.config/waybar/scripts/toggle-wlsunset.sh",
+        "tooltip": false
+    },
+    "custom/playerctl": {
+        "format": "{}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/playerctl_status.py",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-click-middle": "playerctl previous",
+        "interval": 1,
+        "tooltip": true
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", ""]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol"
+    },
+    "custom/notification": {
+        "tooltip": false,
+        "format": "",
+        "on-click": "swaync-client -t -sw",
+        "escape": true
+    },
+    "custom/roman_date": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/roman_date.py",
+        "interval": 3600,
+        "tooltip": false
+    },
+
+    "clock": {
+        "format": "{:%H:%M} ",
+        "interval": 60,
+        "tooltip-format": "<big>{:%A, %B %d, %Y}</big>\n<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "weeks-start-from": 0,
+            "format": {
+                "months": "<span color='#BF616A'><b>{}</b></span>",
+                "weekdays": "<span color='#88C0D0'><b>{}</b></span>",
+                "today": "<span color='#A3BE8C'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-middle": "mode-prev",
+            "on-click": "mode-next"
+        }
+    },
+    "network": {
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-disconnected": "",
+        "tooltip-format-disconnected": "Error",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} 🖧 ",
+        "on-click": "kitty nmtui"
+    },
+    "bluetooth": {
+        "format-on": "󰂯",
+        "format-off": "BT-off",
+        "format-disabled": "󰂲",
+        "format-connected-battery": "{device_battery_percentage}% 󰂯",
+        "format-alt": "{device_alias} 󰂯",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\n{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\n{device_address}\n{device_battery_percentage}%",
+        "on-click-right": "blueman-manager"
+    },
+    "battery": {
+        "interval": 30,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% 󰂄",
+        "format-plugged": "{capacity}% 󰂄 ",
+        "format-alt": "{time} {icon}",
+        "format-icons": [
+            "󰁻",
+            "󰁼",
+            "󰁾",
+            "󰂀",
+            "󰂂",
+            "󰁹"
+        ]
+    },
+    "custom/pacman": {
+        "format": "󰅢 {}",
+        "interval": 30,
+        "exec": "checkupdates | wc -l",
+        "exec-if": "exit 0",
+        "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar",
+        "signal": 8,
+        "tooltip": false
+    },
+    "custom/expand": {
+        "format": "",
+        "tooltip": false
+    },
+    "custom/endpoint": {
+        "format": "|",
+        "tooltip": false
+    },
+    "group/expand": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 600,
+            "transition-to-left": true,
+            "click-to-reveal": true
+        },
+        "modules": ["custom/expand", "custom/colorpicker", "cpu", "memory", "temperature", "custom/endpoint"]
+    },
+    "custom/colorpicker": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": "once",
+        "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+        "on-click": "~/.config/waybar/scripts/colorpicker.sh",
+        "signal": 1
+    },
+    "cpu": {
+        "format": "󰻠",
+        "tooltip": true
+    },
+    "memory": {
+        "format": ""
+    },
+    "temperature": {
+        "critical-threshold": 80,
+        "format": ""
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 10
+    }
+}

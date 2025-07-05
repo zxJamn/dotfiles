@@ -1,0 +1,118 @@
+/* Matte Grey Unified Theme for Firefox - Matching Waybar Look (Darker Version) */
+
+:root {
+  --bg: #2A2A2A; /* Dominant dark grey - NOW DARKER */
+  --hover: rgba(55, 55, 55, 0.7); /* Darker hover grey, adjusted base color */
+  --text: #D5D5D5; /* Slightly brighter light grey text for better contrast on darker bg */
+  --highlight: #FFFFFF; /* White or slightly brighter highlight (remains same) */
+}
+
+* {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  border: none !important;
+  text-shadow: none !important;
+}
+
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#toolbar-menubar,
+#PersonalToolbar,
+#urlbar-background,
+#urlbar,
+#urlbar-input,
+#urlbar-container,
+.toolbarbutton-1,
+.tabbrowser-tab,
+.tab-background {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.tabbrowser-tab[selected],
+.tabbrowser-tab:hover {
+  background: var(--hover) !important;
+  color: var(--highlight) !important;
+}
+
+toolbarbutton:hover {
+  background: var(--hover) !important;
+  color: var(--highlight) !important;
+}
+
+.urlbarView,
+.urlbarView-row,
+.urlbarView-title,
+.urlbarView-action,
+.urlbarView-url,
+.urlbarView-row[selected] {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+.urlbarView-row:hover,
+.urlbarView-row[selected] {
+  background: var(--hover) !important;
+  color: var(--highlight) !important;
+}
+
+/* Sidebar (Bookmarks, History) */
+#sidebar-box,
+#sidebar,
+#bookmarksPanel,
+.sidebar-placesTree,
+.sidebar-panel {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+treechildren::-moz-tree-row {
+  background: transparent !important;
+}
+
+#nav-bar toolbarbutton {
+  filter: grayscale(100%) !important;
+  opacity: 0.6 !important;
+}
+
+/* Tab favicons grayscale */
+.tabbrowser-tab .tab-icon-image,
+.tabbrowser-tab .tab-icon {
+  filter: grayscale(100%) !important;
+  opacity: 0.7 !important;
+}
+
+/* Remove grayscale on active or hover tab */
+.tabbrowser-tab[selected] .tab-icon-image,
+.tabbrowser-tab[selected] .tab-icon,
+.tabbrowser-tab:hover .tab-icon-image,
+.tabbrowser-tab:hover .tab-icon {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+#nav-bar toolbarbutton:hover {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Tree view selections */
+treechildren::-moz-tree-row(selected),
+treechildren::-moz-tree-row(selected, focus) {
+  background: var(--hover) !important;
+}
+
+treechildren::-moz-tree-cell-text {
+  color: var(--text) !important;
+}
+
+treechildren::-moz-tree-cell-text(selected),
+treechildren::-moz-tree-cell-text(selected, focus) {
+  color: var(--highlight) !important;
+}
