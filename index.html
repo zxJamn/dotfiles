@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <body style="background:#111; color:#fff;">
+  <head>
+    <style>
+      body {
+        background: #111;
+        color: #fff;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        padding: 2rem;
+      }
+      video {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid #444;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
     <h1>VPreview</h1>
-    <video width="720" controls>
+    <video controls>
       <source src="Showcase.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </body>
 </html>
-
